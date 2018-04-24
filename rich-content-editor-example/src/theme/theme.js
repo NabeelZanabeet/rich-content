@@ -47,7 +47,6 @@ import imageSettingsMobileHeaderTheme from './toolbars/modals/image/image-settin
 
 const modalTheme = {
   content: {
-    backgroundColor: 'fuchsia'
   }
 };
 

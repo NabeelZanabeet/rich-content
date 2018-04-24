@@ -78,12 +78,7 @@ $MOBILE_HEADER_HEIGHT: 50px;
     width: 50%;
     font-size: 14px;
     border-bottom: 1px #ededed solid;
-    outline: none;
     cursor: pointer;
-    &:focus,
-    &:active {
-        outline: none;
-    }
 }
 
 .galleryImageSettings_replace {

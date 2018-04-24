@@ -1,10 +1,8 @@
 .tooltip {
     &:hover::before {
         // BUBBLE STYLES GO HERE
-        background-color: fuchsia;
     }
     &:hover::after {
         // ARROW STYLES GO HERE
-        background-color: fuchsia;
     }
 }

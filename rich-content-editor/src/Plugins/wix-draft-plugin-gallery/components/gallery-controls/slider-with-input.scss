@@ -31,10 +31,6 @@ $INPUT_WIDTH: 50px;
     box-sizing: border-box;
     padding: 0.1em;
     text-align: center;
-    &:active,
-    &:focus {
-        outline: none;
-    }
     width: $INPUT_WIDTH;
     margin-left: $SLIDER_INPUT_MARGIN;
 }
