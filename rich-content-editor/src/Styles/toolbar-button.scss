@@ -44,7 +44,6 @@
 
   &:hover, &:focus {
     cursor: pointer;
-    outline: 0;
     color: $accent-color;
     @include svg-fill;
   }

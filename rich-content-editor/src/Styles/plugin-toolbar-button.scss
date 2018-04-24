@@ -38,7 +38,6 @@
   &:hover,
   &:focus,
   &.pluginToolbarButton_active {
-    outline: 0; /* reset for :focus */
     color: $accent-color;
     @include svg-fill;
   }
