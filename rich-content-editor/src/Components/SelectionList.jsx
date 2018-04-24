@@ -60,7 +60,7 @@ class SelectionList extends Component {
   render() {
     const { dataSource, className, onChange, renderItem, theme, optionClassName } = this.props;
     return (
-      <div className={classnames(styles.selectionList, className)}>
+      <div role="listbox" className={classnames(styles.selectionList, className)}>
         {dataSource.map(item => this.mapItemToOptionData(item))
           .map(({ item, option, selected }, i) => (
             <SelectionListOption
@@ -94,6 +94,8 @@ class SelectionListOption extends Component {
     const { selected, onChange, children, value, optionClassName, dataHook } = this.props;
     return (
       <div
+        tabIndex={0}
+        role="option"
         className={classnames(this.styles.selectionListOption,
           { [this.styles.selectionListOption_selected]: selected }, optionClassName)}
         data-hook={dataHook} onClick={() => onChange(value)}
