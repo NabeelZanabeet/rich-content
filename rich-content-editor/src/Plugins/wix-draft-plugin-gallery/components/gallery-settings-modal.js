@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import FocusTrap from 'focus-trap-react';
 import { Tabs, Tab } from '~/Components/Tabs';
 import { mergeStyles } from '~/Utils';
 import LayoutSelector from './gallery-controls/layouts-selector';
@@ -195,7 +196,7 @@ export class GallerySettingsModal extends Component {
     } else {
       const headerText = t('GallerySettings_Header');
       return (
-        <div className={styles.gallerySettings}>
+        <FocusTrap className={styles.gallerySettings}>
           <h3 className={styles.gallerySettings_title}>{headerText}</h3>
           <div>
             <Tabs value={activeTab} theme={this.props.theme}>
@@ -208,7 +209,7 @@ export class GallerySettingsModal extends Component {
             </Tabs>
           </div>
           <SettingsPanelFooter fixed cancel={() => this.revertComponentData()} save={() => helpers.closeModal()} theme={this.props.theme} t={t}/>
-        </div>
+        </FocusTrap>
       );
     }
   }
