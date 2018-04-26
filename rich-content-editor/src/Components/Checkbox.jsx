@@ -15,6 +15,8 @@ export default class Checkbox extends React.Component {
     dataHook: PropTypes.string,
   };
 
+  static id = 0;
+
   static defaultProps = {
     checked: false
   };
@@ -22,6 +24,16 @@ export default class Checkbox extends React.Component {
   constructor(props) {
     super(props);
     this.styles = mergeStyles({ styles, theme: props.theme });
+    this.state = { focused: false };
+    this.id = `chk_${++Checkbox.id}`;
+  }
+
+  onFocus() {
+    this.setState({ focused: true });
+  }
+
+  onBlur() {
+    this.setState({ focused: false });
   }
 
   render() {
@@ -30,8 +42,14 @@ export default class Checkbox extends React.Component {
     const isChecked = checked ? { checked: 'checked' } : {};
 
     return (
-      <label className={styles.checkbox}>
-        <input className={styles.checkbox_input} type={'checkbox'} data-hook={dataHook} onChange={onChange} {...isChecked}/>
+      <label htmlFor={this.id} className={classnames({ [styles.checkbox]: true, [styles.checkbox_focused]: this.state.focused })}>
+        <input
+          id={this.id}
+          onFocus={() => this.onFocus()}
+          onBlur={() => this.onBlur()}
+          tabIndex="0"
+          className={styles.checkbox_input} type={'checkbox'} data-hook={dataHook} onChange={onChange} {...isChecked}
+        />
         <i className={classnames(styles.checkbox_icon, checked ? styles.checkbox_icon_checked : styles.checkbox_icon_unchecked)}>
           {checked && <CheckIcon className={styles.checkbox_check}/>}
         </i>

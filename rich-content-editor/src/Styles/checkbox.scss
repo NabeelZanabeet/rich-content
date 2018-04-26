@@ -3,6 +3,10 @@
   opacity: 0;
 }
 
+.checkbox_focused {
+  outline: 1px dashed #000;
+}
+
 .checkbox {
   cursor: pointer;
   display: block;
