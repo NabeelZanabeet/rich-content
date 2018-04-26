@@ -83,6 +83,7 @@ class LinkPanel extends Component {
         <div onKeyPress={this.handleKeyPress}>
           <div className={styles.linkPanel_Input}>
             <input
+              tabIndex="0"
               ref={ref => (this.input = ref)}
               className={textInputClassName}
               placeholder={inputPlaceholder}

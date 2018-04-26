@@ -1,5 +1,9 @@
 @import './fonts.theme.scss';
 
+*:focus {
+  outline: fuchsia 1px dashed;
+}
+
 .hasFocus {
 }
 
