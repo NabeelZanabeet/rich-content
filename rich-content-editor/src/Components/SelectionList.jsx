@@ -83,6 +83,10 @@ class SelectionList extends Component {
         }
         this.setState({ focusIndex: -1, innerNavigation: false });
         break;
+      case ' ':
+      case 'Enter':
+        event.target.click();
+        break;
       default:
         break;
     }
