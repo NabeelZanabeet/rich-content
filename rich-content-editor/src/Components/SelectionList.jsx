@@ -150,7 +150,7 @@ class SelectionListOption extends Component {
         tabIndex={tabIndex}
         role="option"
         ref={el => this.ref = el}
-        onKeyUp={e => onKeyPress(e)}
+        onKeyDown={e => onKeyPress(e)}
         className={classnames(this.styles.selectionListOption,
           { [this.styles.selectionListOption_selected]: selected }, optionClassName)}
         data-hook={dataHook} onClick={() => onChange(value)}
