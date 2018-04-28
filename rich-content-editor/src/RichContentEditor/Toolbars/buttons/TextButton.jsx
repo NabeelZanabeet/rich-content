@@ -48,6 +48,7 @@ export default class TextButton extends Component {
       }
     );
 
+    /* eslint-disable jsx-a11y/no-static-element-interactions */
     const textButton = (
       <div className={styles.inlineToolbarButton_wrapper} onMouseDown={this.preventBubblingUp}>
         <button className={styles.inlineToolbarButton} data-hook={dataHook} onClick={this.handleClick}>
@@ -57,6 +58,7 @@ export default class TextButton extends Component {
         </button>
       </div>
     );
+    /* eslint-enable jsx-a11y/no-static-element-interactions */
 
     return <ToolbarButton theme={theme} showTooltip={showTooltip} tooltipText={tooltipText} button={textButton} />;
   }
