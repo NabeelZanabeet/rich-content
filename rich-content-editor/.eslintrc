@@ -1,10 +1,10 @@
 {
-  "extends": "wix/react",
+  "extends": ["wix/react", "plugin:jsx-a11y/strict"],
   "env": {
     "browser": true,
     "node": true
   },
-  "plugins": ["lodash", "fp"],
+  "plugins": ["lodash", "fp", "jsx-a11y"],
   "rules": {
     "semi": "error",
     "quotes": [
