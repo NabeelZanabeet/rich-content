@@ -40,6 +40,11 @@ export default class Checkbox extends React.Component {
     const { styles } = this;
     const { onChange, label, checked, dataHook } = this.props;
     const isChecked = checked ? { checked: 'checked' } : {};
+    const a11yProps = {
+      'aria-label': label,
+      'aria-checked': checked,
+      role: 'checkbox'
+    };
 
     return (
       <label htmlFor={this.id} className={classnames({ [styles.checkbox]: true, [styles.checkbox_focused]: this.state.focused })}>
@@ -48,6 +53,7 @@ export default class Checkbox extends React.Component {
           onFocus={() => this.onFocus()}
           onBlur={() => this.onBlur()}
           tabIndex="0"
+          {...a11yProps}
           className={styles.checkbox_input} type={'checkbox'} data-hook={dataHook} onChange={onChange} {...isChecked}
         />
         <i className={classnames(styles.checkbox_icon, checked ? styles.checkbox_icon_checked : styles.checkbox_icon_unchecked)}>

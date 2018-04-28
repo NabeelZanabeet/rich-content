@@ -101,7 +101,8 @@ class SelectionList extends Component {
     return (
       <div
         ref={el => this.ref = el}
-        role="listbox"
+        role={'listbox'}
+        aria-orientation={'horizontal'}
         className={classnames(styles.selectionList, className)}
         onFocus={() => this.setState({ focused: true })}
         onBlur={() => this.setState({ focused: false })}
@@ -149,10 +150,12 @@ class SelectionListOption extends Component {
 
   render() {
     const { selected, onChange, children, value, optionClassName, dataHook, tabIndex, onKeyPress } = this.props;
+
     return (
       <div
         tabIndex={tabIndex}
-        role="option"
+        role={'option'}
+        aria-selected={selected}
         ref={el => this.ref = el}
         onKeyDown={e => onKeyPress(e)}
         className={classnames(this.styles.selectionListOption,
