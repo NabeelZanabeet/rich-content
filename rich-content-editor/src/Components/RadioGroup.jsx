@@ -14,6 +14,7 @@ class RadioGroup extends Component {
     value: PropTypes.string.isRequired,
     className: PropTypes.string,
     theme: PropTypes.object.isRequired,
+    ariaLabelledBy: PropTypes.string,
   };
 
   constructor(props) {
@@ -68,10 +69,13 @@ class RadioGroup extends Component {
   }
 
   render() {
-    const { dataSource, value, className, onChange } = this.props;
+    const { dataSource, value, className, onChange, ariaLabelledBy } = this.props;
     const { styles } = this;
     return (
-      <div role="radiogroup" tabIndex="-1" className={classnames(styles.radioGroup, className)} onKeyDown={e => this.onKeyDown(e)}>
+      <div
+        aria-labelledby={ariaLabelledBy} role="radiogroup" tabIndex="-1"
+        className={classnames(styles.radioGroup, className)} onKeyDown={e => this.onKeyDown(e)}
+      >
         {dataSource
           .map((option, i) => {
             const checked = option.value === value ? { checked: 'checked' } : {};
