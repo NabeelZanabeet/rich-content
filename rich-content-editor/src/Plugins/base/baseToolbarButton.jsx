@@ -169,7 +169,7 @@ class BaseToolbarButton extends React.Component {
     const filesButton = (
       <div className={replaceButtonWrapperClassNames}>
         <FileInput
-          className={classNames(buttonClassNames)}
+          className={classNames(buttonClassNames)} theme={theme}
           dataHook={dataHook} onChange={this.handleFileChange} accept="image/*" multiple={this.props.multiple}
         >
           {this.getIcon()}

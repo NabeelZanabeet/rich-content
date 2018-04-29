@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 import findIndex from 'lodash/findIndex';
+import FocusTrap from 'focus-trap-react';
 import { getScaleToFillImageURL } from 'image-client-api/dist/imageClientSDK';
 import Image from '~/Components/Image';
 
@@ -92,7 +93,7 @@ class ImageSettings extends Component {
     const linkLabel = t('GalleryImageSettings_Link_Label');
 
     return (
-      <div className={styles.galleryImageSettings}>
+      <FocusTrap className={styles.galleryImageSettings}>
         <div className={styles.galleryImageSettings_content}>
           { isMobile ?
             <GallerySettingsMobileHeader
@@ -104,7 +105,7 @@ class ImageSettings extends Component {
             /> :
             <h3
               className={classNames(styles.galleryImageSettings_backButton, styles.galleryImageSettings_title)}
-              data-hook="galleryImageSettingsHeader" onClick={() => onCancel(this.initialImageState)}
+              data-hook="galleryImageSettingsHeader"
             >
               <BackIcon className={styles.galleryImageSettings_backIcon} />{headerLabel}
             </h3>
@@ -121,12 +122,12 @@ class ImageSettings extends Component {
                 theme={theme}
               />
               <div className={classNames(styles.galleryImageSettings_nav, { [styles.galleryImageSettings_nav_mobile]: isMobile })}>
-                <i
+                <button
                   className={classNames(styles.galleryImageSettings_previous,
                     { [styles.galleryImageSettings_hidden]: this.state.selectedIndex === 0 })}
                   data-hook="galleryImageSettingsPrevious" onClick={() => this.setState({ selectedIndex: this.state.selectedIndex - 1 })}
                 />
-                <i
+                <button
                   className={classNames(styles.galleryImageSettings_next,
                     { [styles.galleryImageSettings_hidden]: this.state.selectedIndex === images.length - 1 })}
                   data-hook="galleryImageSettingsNext" onClick={() => this.setState({ selectedIndex: this.state.selectedIndex + 1 })}
@@ -136,7 +137,7 @@ class ImageSettings extends Component {
             <div className={styles.galleryImageSettings_manageImageGrid}>
               <FileInput
                 className={styles.galleryImageSettings_replace} handleFileSelection={handleFileSelection}
-                dataHook="galleryImageSettingsFileInput" onChange={this.replaceItem}
+                dataHook="galleryImageSettingsFileInput" onChange={this.replaceItem} theme={theme}
               >
                 <span className={styles.galleryImageSettings_replace_text}>{ReplaceLabel}</span>
               </FileInput>
@@ -158,7 +159,7 @@ class ImageSettings extends Component {
               />
             </SettingsSection>
             <SettingsSection theme={theme} className={this.styles.galleryImageSettings_section}>
-              <label className={this.styles.inputWithLabel_label}>{linkLabel}</label>
+              <span className={this.styles.inputWithLabel_label}>{linkLabel}</span>
             </SettingsSection>
             <div className={this.styles.galleryImageSettingsLinkContainer}>
               <LinkPanel
@@ -182,7 +183,7 @@ class ImageSettings extends Component {
           />
           }
         </div>
-      </div>
+      </FocusTrap>
     );
   }
 }

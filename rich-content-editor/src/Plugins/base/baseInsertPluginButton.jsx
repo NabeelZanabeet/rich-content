@@ -140,6 +140,7 @@ export default ({ blockType, button, helpers, pubsub, t }) => {
             onChange={this.handleFileChange}
             accept="image/*"
             multiple={button.multi}
+            theme={this.props.theme}
           />
         </form>
       );
