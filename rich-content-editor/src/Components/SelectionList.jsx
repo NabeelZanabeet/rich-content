@@ -30,11 +30,7 @@ class SelectionList extends Component {
   constructor(props) {
     super(props);
     this.styles = mergeStyles({ styles, theme: props.theme });
-    this.state = {
-      focused: false,
-      focusIndex: -1,
-      innerNavigation: false
-    };
+    this.state = { focusIndex: -1 };
   }
 
   static propTypes = {
@@ -62,8 +58,8 @@ class SelectionList extends Component {
     };
   }
 
-  onKeyPress(event) {
-    if (!this.state.focused || this.props.dataSource.length < 2) {
+  onKeyDown(event) {
+    if (this.props.dataSource.length < 2) {
       return;
     }
     const index = this.state.focusIndex === -1 ? 0 : this.state.focusIndex;
@@ -78,10 +74,7 @@ class SelectionList extends Component {
         nextIndex = (index + 1) % this.props.dataSource.length;
         break;
       case 'Tab':
-        if (!this.state.innerNavigation) {
-          return;
-        }
-        this.setState({ focusIndex: -1, innerNavigation: false });
+        this.setState({ focusIndex: -1 });
         break;
       case ' ':
       case 'Enter':
@@ -92,7 +85,7 @@ class SelectionList extends Component {
     }
 
     if (nextIndex > -1) {
-      this.setState({ focusIndex: nextIndex, innerNavigation: true });
+      this.setState({ focusIndex: nextIndex });
     }
   }
 
@@ -104,8 +97,6 @@ class SelectionList extends Component {
         role={'listbox'}
         aria-orientation={'horizontal'}
         className={classnames(styles.selectionList, className)}
-        onFocus={() => this.setState({ focused: true })}
-        onBlur={() => this.setState({ focused: false })}
       >
         {dataSource.map(item => this.mapItemToOptionData(item))
           .map(({ item, option, selected }, i) => (
@@ -114,7 +105,7 @@ class SelectionList extends Component {
               selected={selected}
               focused={i === this.state.focusIndex}
               dataHook={item.dataHook} onChange={onChange} key={i} theme={theme} value={option.value} optionClassName={optionClassName}
-              onKeyPress={e => this.onKeyPress(e)}
+              onKeyDown={e => this.onKeyDown(e)}
             >
               {renderItem({ item, option, selected })}
             </SelectionListOption>)
@@ -134,7 +125,7 @@ class SelectionListOption extends Component {
     optionClassName: PropTypes.string,
     dataHook: PropTypes.string,
     tabIndex: PropTypes.number,
-    onKeyPress: PropTypes.func,
+    onKeyDown: PropTypes.func,
   };
 
   constructor(props) {
@@ -149,7 +140,7 @@ class SelectionListOption extends Component {
   }
 
   render() {
-    const { selected, onChange, children, value, optionClassName, dataHook, tabIndex, onKeyPress } = this.props;
+    const { selected, onChange, children, value, optionClassName, dataHook, tabIndex, onKeyDown } = this.props;
 
     return (
       <div
@@ -157,7 +148,7 @@ class SelectionListOption extends Component {
         role={'option'}
         aria-selected={selected}
         ref={el => this.ref = el}
-        onKeyDown={e => onKeyPress(e)}
+        onKeyDown={e => onKeyDown(e)}
         className={classnames(this.styles.selectionListOption,
           { [this.styles.selectionListOption_selected]: selected }, optionClassName)}
         data-hook={dataHook} onClick={() => onChange(value)}

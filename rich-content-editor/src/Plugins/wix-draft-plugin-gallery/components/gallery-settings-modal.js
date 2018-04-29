@@ -11,6 +11,9 @@ import { SortableComponent } from './gallery-controls/gallery-items-sortable';
 import layoutData from '../helpers/layout-data-provider';
 import GallerySettingsMobileHeader from './gallery-controls/gallery-settings-mobile-header';
 
+function onFocus(e) {
+  console.log('focus e: ', e.target); // eslint-disable-line no-console
+}
 class ManageMediaSection extends Component {
 
   applyItems = items => {
@@ -134,6 +137,7 @@ export class GallerySettingsModal extends Component {
     this.setState({
       initComponentData: this.props.pubsub.get('componentData')
     });
+    document.body.addEventListener('focus', onFocus, true);
   }
 
   componentWillUnmount() {

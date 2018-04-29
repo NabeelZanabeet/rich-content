@@ -19,26 +19,78 @@ class RadioGroup extends Component {
   constructor(props) {
     super(props);
     this.styles = mergeStyles({ styles, theme: props.theme });
-    ++RadioGroup.id;
+    this.state = { focusIndex: -1 };
+    this.id = `group_${++RadioGroup.id}`;
+    this.inputs = {};
   }
 
+  onKeyDown(event) {
+    if (this.props.dataSource.length < 2) {
+      return;
+    }
+    const index = this.state.focusIndex === -1 ? 0 : this.state.focusIndex;
+    let nextIndex = -1;
+    switch (event.key) {
+      case 'ArrowLeft':
+      case 'ArrowUp':
+        nextIndex = index === 0 ? this.props.dataSource.length - 1 : index - 1;
+        break;
+      case 'ArrowRight':
+      case 'ArrowDown':
+        nextIndex = (index + 1) % this.props.dataSource.length;
+        break;
+      case 'Tab':
+        this.setState({ focusIndex: -1, innerNavigation: false });
+        break;
+      case ' ':
+      case 'Enter':
+        event.target.click();
+        break;
+      default:
+        break;
+    }
+
+    if (nextIndex > -1) {
+      this.setState({ focusIndex: nextIndex, innerNavigation: true });
+    }
+  }
+
+  componentDidUpdate() {
+    if (this.state.focusIndex !== -1) {
+      this.inputs[`${this.id}_${this.state.focusIndex}`].focus();
+    }
+  }
+
+  saveInputRef(el, inputId) {
+    if (!this.inputs[inputId]) {
+      this.inputs[inputId] = el;
+    }
+  }
 
   render() {
     const { dataSource, value, className, onChange } = this.props;
-
+    const { styles } = this;
     return (
-      <div className={classnames(this.styles.radioGroup, className)}>
+      <div role="radiogroup" tabIndex="-1" className={classnames(styles.radioGroup, className)} onKeyDown={e => this.onKeyDown(e)}>
         {dataSource
-          .map(option => {
+          .map((option, i) => {
             const checked = option.value === value ? { checked: 'checked' } : {};
+            const a11yProps = {
+              'aria-checked': option.value === value,
+              'aria-label': option.labelText
+            };
+            const inputId = `${this.id}_${i}`;
             return (
               <label
-                name={`group_${RadioGroup.id}`} key={option.value}
-                className={this.styles.radioGroup} data-hook={option.dataHook} onClick={() => onChange(option.value)}
+                htmlFor={inputId} tabIndex={i === 0 ? 0 : -1} name={`${this.id}`} key={option.value}
+                ref={el => this.saveInputRef(el, inputId)} className={styles.radioGroup} data-hook={option.dataHook}
               >
-                <input className={this.styles.radioGroup_input} type={'radio'} {...checked} onChange={() => {}}/>
-                <span className={this.styles.radioGroup_button}/>
-                <span className={this.styles.radioGroup_label}>{option.labelText}</span>
+                <input
+                  tabIndex="-1" {...a11yProps} id={inputId} className={styles.radioGroup_input}
+                  type={'radio'} {...checked} onChange={() => onChange(option.value)}
+                />
+                <span className={styles.radioGroup_button}/>
+                <span className={styles.radioGroup_label}>{option.labelText}</span>
               </label>);
           })}
       </div>);
