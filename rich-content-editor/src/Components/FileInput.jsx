@@ -30,12 +30,18 @@ class FileInput extends Component {
     const { onChange, accept, multiple, className, title, children, dataHook } = this.props;
     const hasMultiple = multiple ? { multiple } : {};
     const { styles } = this;
+    const a11yProps = {
+      role: 'button',
+      'aria-label': title
+    };
+
     return (
       <label
         htmlFor={this.id} tabIndex={-1} className={classnames({ [className]: true, [styles.focused]: this.state.focused })}
         style={this.props.style} title={title}
       >
         <input
+          {...a11yProps}
           className={styles.visuallyHidden}
           id={this.id}
           type={'file'}
