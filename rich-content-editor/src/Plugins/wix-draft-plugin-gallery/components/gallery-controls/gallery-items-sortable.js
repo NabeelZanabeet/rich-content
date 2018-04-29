@@ -41,7 +41,7 @@ const SortableItem = sortableElement(props => {
         className={classNames(styles.itemContainer, styles.filesItem, { [styles.mobile]: isMobile })}
         dataHook="galleryItemsSortableFileInputBottom" onChange={handleFileChange}
         handleFileSelection={handleFileSelection}
-        multiple
+        multiple theme={theme}
         title={uploadMediaLabel}
         style={{ width: imageSize + 'px', height: imageSize + 'px' }}
       >
@@ -170,7 +170,7 @@ const ItemActionsMenu = props => {
       className={styles.filesButton}
       dataHook="galleryItemsSortableFileInputTop" onChange={handleFileChange}
       handleFileSelection={handleFileSelection}
-      multiple
+      multiple theme={theme}
     >
       {(isMobile ? <Fab className={styles.fab} /> : `+ ${addMediaLabel}`)}
     </FileInput>

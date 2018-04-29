@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import { mergeStyles } from '~/Utils';
 import CheckIcon from '~/Components/icons/check.svg';
 import styles from '~/Styles/checkbox.scss';
+import globalStyles from '~/Styles/global.scss';
 
 export default class Checkbox extends React.Component {
 
@@ -24,6 +25,7 @@ export default class Checkbox extends React.Component {
   constructor(props) {
     super(props);
     this.styles = mergeStyles({ styles, theme: props.theme });
+    this.globalStyles = mergeStyles({ styles: globalStyles, theme: props.theme });
     this.state = { focused: false };
     this.id = `chk_${++Checkbox.id}`;
   }
@@ -37,7 +39,7 @@ export default class Checkbox extends React.Component {
   }
 
   render() {
-    const { styles } = this;
+    const { styles, globalStyles } = this;
     const { onChange, label, checked, dataHook } = this.props;
     const isChecked = checked ? { checked: 'checked' } : {};
     const a11yProps = {
@@ -47,7 +49,7 @@ export default class Checkbox extends React.Component {
     };
 
     return (
-      <label htmlFor={this.id} className={classnames({ [styles.checkbox]: true, [styles.checkbox_focused]: this.state.focused })}>
+      <label htmlFor={this.id} className={classnames({ [styles.checkbox]: true, [globalStyles.focused]: this.state.focused })}>
         <input
           id={this.id}
           onFocus={() => this.onFocus()}

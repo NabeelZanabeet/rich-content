@@ -9,6 +9,20 @@
   display: flex;
 }
 
+.focused,
+*:focus {
+  outline: 1px dashed #000;
+}
+
+.visuallyHidden {
+  width: 0.1px;
+	height: 0.1px;
+	overflow: hidden;
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
+}
+
 //*** BLOCK ***//
 .hasFocus {
   @include block-select;
